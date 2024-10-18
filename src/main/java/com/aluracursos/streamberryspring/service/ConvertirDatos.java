@@ -1,8 +1,7 @@
 package com.aluracursos.streamberryspring.service;
-
-import com.aluracursos.streamberryspring.models.DatosSerie;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 public class ConvertirDatos implements IConvertirDatos{
     private ObjectMapper objectMapper = new ObjectMapper();

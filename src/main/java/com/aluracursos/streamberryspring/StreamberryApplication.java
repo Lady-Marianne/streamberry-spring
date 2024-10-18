@@ -16,5 +16,12 @@ public class StreamberryApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Principal principal = new Principal();
 		principal.mostrarMenu();
+
+//		EjemploStreams ejemploStreams = new EjemploStreams();
+//		ejemploStreams.muestraEjemplo();
+
+
+
+
 	}
 }
