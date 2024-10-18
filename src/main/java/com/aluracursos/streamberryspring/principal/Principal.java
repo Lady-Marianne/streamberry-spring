@@ -138,6 +138,40 @@ public class Principal {
                                 " Episodio: " + e.getTitulo() +
                                 " Fecha de lanzamiento: " + e.getFechaDeLanzamiento().format(dtf)
                 ));
+
+        // Buscar episodios por título o parte de él:
+
+        System.out.println("\nIngrese el título de un episodio que desea ver o parte de el mismo:");
+        var pedazoTitulo = teclado.nextLine();
+        Optional<Episodio> episodioBuscado = episodios.stream()
+                .filter(e -> e.getTitulo().toUpperCase().contains(pedazoTitulo.toUpperCase()))
+                .findFirst();
+        if(episodioBuscado.isPresent()) {
+            System.out.println("Episodio encontrado:");
+            System.out.println("Información del episodio: " + episodioBuscado.get() + "\n");
+        } else {
+            System.out.println("Episodio no encontrado.\n");
+        }
+        Map<Integer,Double>evaluacionesPorTemporada = episodios.stream()
+                .filter(e -> e.getEvaluacion() > 0.0)
+                .collect(Collectors.groupingBy(Episodio::getTemporada,
+                        Collectors.averagingDouble(Episodio::getEvaluacion)));
+        System.out.println("Evaluaciones por temporada: " + evaluacionesPorTemporada);
+
+        // Top 5 de los episodios mejor evaluados (este anda bien):
+
+        System.out.println("\nTop 5 de los mejores episodios:\n");
+        episodios.stream()
+                .filter(e -> e.getEvaluacion() > 0.0)
+                .sorted(Comparator.comparing(Episodio::getEvaluacion).reversed())
+                .limit(5)
+                .map(e -> String.format("Título: %s, Evaluación: %.2f, Temporada: %d",
+                        e.getTitulo().toUpperCase(),
+                        e.getEvaluacion(),
+                        e.getTemporada()))
+                .forEach(System.out::println);
+        System.out.println("\n");
+
     }
 }
 
